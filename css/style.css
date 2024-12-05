@@ -1,0 +1,658 @@
+:root {
+    --text-color: #ffffff;
+    --background-color: #070707;
+    --navbar-color: #000000;
+    --lighter-decal-color: #65e21c;
+    --decal-color: #65e21c; /* #e21c61 */
+    --darker-decal-color: #163107;
+    --jackpot-color: #ffd051;
+}
+body {
+    margin: 0px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+.flex-body {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: stretch;
+    height: 100vh;
+}
+nav {
+    height: 65px;
+    width: 100%;
+    background-color: var(--navbar-color);
+
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--text-color);
+    font-size: 32px;
+
+    display: flex;
+    justify-content: stretch;
+    align-items: center;
+    
+    user-select: none;
+}
+#options {
+    width: 100%;
+    
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#options > a {
+    padding: 10px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    transition-property: background-color, color;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    transform: translate(0%,5%);
+    padding-top: 3px;
+
+    color: var(--text-color);
+    text-decoration: none;
+}
+#options > a:hover {
+    background-color: var(--decal-color);
+    color: var(--navbar-color);
+}
+#options > a:active {
+    background-color: var(--text-color);
+    color: var(--navbar-color);
+}
+
+
+#site-title {
+    width: 100%;
+
+    height: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: left;
+    
+    font-family: Arial, Helvetica, sans-serif;
+}
+#site-title > h1 {
+    transform: translate(0%, 5%);
+}
+.site-icon {
+    font-size: 48px;
+    color: var(--decal-color);
+}
+.spacing {
+    width: 5px;
+}
+.small-title {
+    font-size: 32px;
+}
+.pusher-32px {
+    width: 32px;
+}
+
+#profile-container {
+    width: 100%;
+
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+}
+#profile-container > img {
+    height: 80%;
+}
+#profile-container > span {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: 100%;
+    justify-content: center;
+    align-items: start;
+    gap: 0px;
+}
+#profile-container #username-display {
+    position: relative;
+    top: 5px;
+    font-size: 16px;
+    margin: 0px;
+}
+#profile-container #cash-display {
+    font-size: 23px;
+    margin: 0px;
+}
+#profile-container #options-button {
+    position: absolute;
+    right: 32px;
+    cursor: pointer;
+}
+
+#secondary-profile-container {
+    display: none;
+}
+
+
+#giant-grid {
+    position: relative;
+    top: 16px;
+    left: 50%;
+    transform: translate(-50%);
+    width: calc(100% - 64px);
+    height: fit-content;
+
+    display: grid;
+    grid-template-columns: repeat(10,1fr);
+    grid-template-rows: auto;
+    gap: 32px;
+}
+
+main {
+    grid-column: 3 / 9;
+    grid-row: 1 / 5;
+    width: 100%;
+
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--text-color);
+
+    text-align: center;
+
+    border-radius: 2px;
+
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+main h1 {
+    font-size: 48px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+main > #fake-info {
+    font-size: 18px;
+    margin-top: 0px;
+}
+
+.margin-top {
+    margin-top: 23px;
+}
+
+main section {
+    background-color: var(--navbar-color);
+    background: linear-gradient(
+        45deg, var(--navbar-color) 50%,
+        color-mix(in srgb, var(--decal-color) 50%,var(--navbar-color) 50%)
+    );
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0 var(--darker-decal-color), 0px 0 var(--darker-decal-color), 0 0px var(--darker-decal-color), 0 0px var(--darker-decal-color),
+    0px 0px var(--darker-decal-color), 0px 0px var(--darker-decal-color), 0px 0px var(--darker-decal-color), -1px 1px var(--darker-decal-color);
+}
+
+.dela-gothic-one-regular {
+    font-family: "Dela Gothic One", sans-serif;
+    font-weight: 0;
+    font-style: normal;
+}
+
+.not-bold {
+    font-weight: 0;
+    font-style: normal;
+}
+  
+#jackpot-count-container {
+    overflow: hidden;
+    width: 30px;
+    font-family: "Rubik Mono One", monospace;
+    font-size: 23px;
+
+    display: inline-flex;
+    justify-content: center;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+}
+
+#jackpot-count-copy {
+    position: absolute;
+    opacity: 0%;
+}
+
+.jackpot-old-animation {
+    animation: jackpot-refresh-old 1s forwards;
+}
+
+.jackpot-new-animation {
+    position: absolute;
+    animation: jackpot-refresh-new 1s forwards;
+}
+
+@keyframes jackpot-refresh-new {
+    from {
+        opacity: 0%;
+    }
+    to {
+        opacity: 100%;
+    }
+}
+
+@keyframes jackpot-refresh-old {
+    from {
+        opacity: 100%;
+    }
+    to {
+        opacity: 0%;
+    }
+}
+
+.decal-color {
+    color: var(--decal-color);
+}
+
+.flex-two-columns {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    gap: 16px;
+}
+.flex-two-columns > div {
+    width: 100%;
+    height: auto;
+}
+.flex-legal {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    gap: 16px;
+}
+
+label {
+    background-color: var(--decal-color);
+    color: var(--background-color);
+}
+
+.border-text {
+    text-shadow: 2px 0 var(--navbar-color), -2px 0 var(--navbar-color), 0 2px var(--navbar-color), 0 -2px var(--navbar-color),
+    1px 1px var(--navbar-color), -1px -1px var(--navbar-color), 1px -1px var(--navbar-color), -1px 1px var(--navbar-color);
+}
+
+main .jackpot {
+    color: var(--jackpot-color);
+}
+main h2 {
+    font-size: 32px;
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+
+main h3 {
+    font-size: 1.5vw;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+main > div {
+    width: 100%;
+}
+
+.btn-secondary {
+    position: relative;
+    background-color: var(--decal-color);
+    color: var(--navbar-color);
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 5px;
+}
+.btn-primary {
+    background-color: var(--decal-color);
+    color: var(--navbar-color);
+    text-decoration: none;
+    border-style: none;
+    padding: 25px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 20px;
+}
+
+.welcome-section {
+    /*background: linear-gradient(
+        45deg, var(--background-color) 50%, rgb(23,23,23) 100%
+    );*/
+    background: none;
+    height: 130px;
+    border: rgb(23, 23, 23) groove 1px;
+    box-shadow: none;
+    padding: 50px;
+    overflow: hidden;
+
+    background: url("https://i.pinimg.com/originals/4d/68/cd/4d68cd156b67ed38303691834e7a9628.gif");
+}
+
+.welcome-section p {
+    width: fit-content;
+    background-color: var(--navbar-color);
+    background-size: cover;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    width: 100%;
+}
+.welcome-section h2 {
+    text-shadow: 5px 0 var(--navbar-color), -5px 0 var(--navbar-color), 0 5px var(--navbar-color), 0 -5px var(--navbar-color),
+    5px 5px var(--navbar-color), -5px -5px var(--navbar-color), 5px -5px var(--navbar-color), -5px 5px var(--navbar-color);
+    width: 100%;
+}
+
+.money-pile {
+    position: relative;
+    width: 35vw;
+    transform: translate(-80%,-30%);
+}
+.money-pile.one {
+    left: 100%;
+}
+.money-pile.two {
+    left: 0%;
+    transform: translate(-80%,-150%);
+}
+
+.welcome-section a {
+    position: relative;
+    background-color: var(--decal-color);
+    color: var(--navbar-color);
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#popular-games {
+    width: 100%;
+    height: fit-content;
+
+    background-color: var(--navbar-color);
+    padding: 5x;
+
+    overflow: hidden;
+}
+
+#popular-games > .container {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    left: 0%;
+
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    
+    animation-name: popular-games-loop;
+    animation-duration: 50s;
+    animation-timing-function: linear;
+    animation-direction: forwards;
+    animation-iteration-count: infinite;
+}
+
+@keyframes popular-games-loop {
+    from {
+        transform: translate(0%,0%);
+    }
+    to {
+        transform: translate(-50%,0%);
+    }
+}
+
+.game-container {
+    width: 10vw;
+    border: var(--navbar-color) 1px solid;
+    aspect-ratio: 1 / 1;
+    height: 100%;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition-property: font-size, height;
+    transition-duration: 0.2s;
+
+    font-size: 2vw;
+    border-radius: 3px;
+
+    cursor: pointer;
+}
+
+.game-container:hover > span {
+    width: 100%;
+    height: 20%;
+    font-size: 2vw;
+    background-color: black;
+}
+
+.game-container:hover {
+    border: 1px solid var(--text-color);
+}
+
+.game-container > span {
+    width: 100%;
+    background-color: black;
+    height: 20px;
+    font-size: 16px;
+    transition-property: height, font-size;
+    transition-duration: 0.2s;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-wrap: nowrap;
+    user-select: none;
+}
+
+
+.game-container.tigrinho {
+    background-image: url("https://conteudo.imguol.com.br/c/noticias/3e/2024/05/24/jogo-do-tigrinho-1716593543429_v2_3x4.png");
+}
+
+.game-container.pato {
+    background-image: url("https://blog.polipet.com.br/wp-content/uploads/2024/01/pato-445x445.jpeg");
+}
+
+.game-container.roleta {
+    background-image: url("https://img.freepik.com/fotos-gratis/roda-de-roleta-giratoria-traz-riscos-e-riqueza-ao-cassino-gerados-pela-ia_188544-55806.jpg");
+}
+
+aside {
+    text-align: center;
+    /*background-image: repeating-linear-gradient(
+        45deg,
+        var(--decal-color) 0px,
+        var(--decal-color) 5px,
+        var(--darker-decal-color) 5px,
+        var(--darker-decal-color) 50px
+    );
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 2vw;
+    */
+
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    width: 100%;
+}
+
+.dm-sans {
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+aside div {
+    margin: 16px;
+}
+
+.ad-popup {
+    background-color: var(--navbar-color);
+    padding: 15px;
+    border-radius: 20px;
+}
+.ad-popup > section {
+    text-align: center;
+    border-radius: 10px;
+    border: var(--decal-color) 1px dashed;
+}
+.ad-popup > section > p {
+    margin: 10px;
+    margin-bottom: 20px;
+    margin-top: 5px;
+}
+.ad-popup > .btn-secondary {
+    padding: 5px;
+    bottom: 10px;
+}
+.ad-popup > .btn-secondary:hover {
+    animation-name: padding-pulse;
+    animation-duration: 0.2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.ad-popup > .btn-secondary:active {
+    color: var(--text-color);
+    background-color: var(--navbar-color);
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+@keyframes padding-pulse {
+    from {
+        padding: 5px;
+    }
+    to {
+        padding: 10px;
+    }
+}
+
+.ad-popup h3 {
+    font-size: 1vw;
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+aside > span {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    text-shadow: 2px 0 var(--navbar-color), -2px 0 var(--navbar-color), 0 2px var(--navbar-color), 0 -2px var(--navbar-color),
+    1px 1px var(--navbar-color), -1px -1px var(--navbar-color), 1px -1px var(--navbar-color), -1px 1px var(--navbar-color);}
+
+aside.right {
+    grid-column: 9 / 11;
+    grid-row: 1 / 5;
+}
+
+aside.left {
+    grid-column: 1 / 3;
+    grid-row: 1 / 5;
+}
+
+footer {
+    position: relative;
+    bottom: 0px;
+    margin-top: 96px;
+    width: 100%;
+    min-height: 320px;
+    height: 100%;
+    background-color: var(--navbar-color);
+}
+
+@media only screen and (max-width: 800px) {
+    main {
+        grid-column: 1 / 11;
+        grid-row: 1 / 5;
+
+        border-radius: 15px;
+    }
+    aside.right {
+        display: none;
+    }
+    aside.left {
+        display: none;
+    }
+
+    #site-title {
+        display: none;
+    }
+    #profile-container {
+        display: none;
+    }
+    #secondary-profile-container {
+        position: relative;
+        top: 5px;
+        width: 100%;
+        height: 16px;
+
+        font-family: "Bebas Neue", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+    #popular-games .game-container {
+        width: 23vw;
+    }
+    .money-pile {
+        display: none;
+    }
+}
+
+#game-list {
+    display: flex;
+    justify-content: space-around;
+    align-items: start;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+#game-list .game-container{
+    width: 30%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    flex-grow: 1;
+}
+
+#game-iframe {
+    width: 100%;
+    height: 750px;
+    border: 0px;
+}
+
+.bebas-neue {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 18px;
+}

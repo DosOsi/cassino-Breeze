@@ -1,0 +1,13 @@
+NAV:
+Usei um flex, que separa cada um dos elementos.
+E um flex dentro desse flex para organizar as opções de maneira alinhada.
+O flex foi preferivel por ser apenas uma linha.
+
+Corpo do site:
+Uma grid foi usada para separar o site em 3 partes: anuncios, conteudo e anuncios novamente.
+A grid foi preferivel pela necessidade de tridimensionalidade
+
+O conteudo do site em si:
+O meio do site é um flex vertical. Que foi preferivel graças a clara linearidade do conteudo.
+Partes como a lista de jogos populares usam de um flex horizontal em uma seção.
+Deixa mais organizado e facil de adicionar novos conteudos pelo meio de classes.

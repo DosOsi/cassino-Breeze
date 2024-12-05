@@ -1,0 +1,23 @@
+:root {
+    --text-color: #ffffff;
+    --background-color: #070707;
+    --navbar-color: #000000;
+    --lighter-decal-color: #65e21c;
+    --decal-color: #65e21c; /* #e21c61 */
+    --darker-decal-color: #163107;
+    --jackpot-color: #ffd051;
+}
+body {
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+#main-canvas {
+    border: 1px solid var(--text-color);
+    height: 500px;
+}
+#main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
