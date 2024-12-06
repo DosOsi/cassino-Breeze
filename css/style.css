@@ -2,10 +2,13 @@
     --text-color: #ffffff;
     --background-color: #070707;
     --navbar-color: #000000;
-    --lighter-decal-color: #65e21c;
+    --lighter-decal-color: #80f040;
     --decal-color: #65e21c; /* #e21c61 */
     --darker-decal-color: #163107;
     --jackpot-color: #ffd051;
+    --golden-color: #ffd900;
+    --silver-color: #d8d8d8;
+    --bronze-color: #b15e00;
 }
 body {
     margin: 0px;
@@ -43,6 +46,7 @@ nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-grow: 1;
 }
 
 #options > a {
@@ -99,14 +103,14 @@ nav {
 }
 
 #profile-container {
-    width: 100%;
-
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: nowrap;
+    flex-shrink: 1;
     gap: 10px;
+    max-width: 572px;
 }
 #profile-container > img {
     height: 80%;
@@ -258,6 +262,23 @@ main section {
 .decal-color {
     color: var(--decal-color);
 }
+.darker-decal-color {
+    color: var(--darker-decal-color);
+}
+.lighter-decal-color {
+    color: var(--lighter-decal-color);
+}
+
+.golden-color {
+    color: var(--golden-color);
+}
+.silver-color {
+    color: var(--silver-color);
+}
+.bronze-color {
+    color: var(--bronze-color);
+}
+
 
 .flex-two-columns {
     display: flex;
@@ -339,6 +360,10 @@ main > div {
     overflow: hidden;
 
     background: url("https://i.pinimg.com/originals/4d/68/cd/4d68cd156b67ed38303691834e7a9628.gif");
+}
+
+.welcome-section.minimized {
+    height: 50px;
 }
 
 .welcome-section p {

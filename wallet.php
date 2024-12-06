@@ -48,11 +48,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div id="options">
             <a href="index.php">HOME</a>
-            <a href="games.php">GAMES</a>
-            <a href="wallet.php">WALLET</a>
+            <a href="leaderboard.php">RANK</a>
+            <?php if (isset($_SESSION["login"])) {echo '<a href="wallet.php">WALLET</a>';}; ?>
         </div>
 
-        <div id="profile-container">
+        <div id="profile-container" <?php
+        if (!isset($_SESSION["login"])) {
+            echo "style='visibility: hidden;'";
+            };
+        ?>>
             <img src="https://static-00.iconduck.com/assets.00/profile-circle-icon-1023x1024-ucnnjrj1.png">
             <span>
                 <b id="username-display">@<?=$_SESSION["login"];?></b>
@@ -61,7 +65,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <i id="options-button" class="fa-solid fa-bars"></i>
         </div>
     </nav>
-    <div id="secondary-profile-container">
+    <div id="secondary-profile-container"<?php
+        if (!isset($_SESSION["login"])) {
+            echo "style='visibility: hidden;'";
+            };
+        ?>>
         <b id="secondary-username-display">@<?=$_SESSION["login"];?></b>
         <b id="secondary-cash-display"><?=$_SESSION["money"];?> C$</b>
     </div>
@@ -78,7 +86,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </form>
                 </div>
             </section>
-            
+            <section class="margin-top section2">
+                <h2 class="dela-gothic-one-regular"><i class="fa-solid fa-sack-dollar decal-color"></i>  SACAR</h2>
+                <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+                    <form class="flex-legal">
+                        <input type="number" disabled placeholder=" ̶2̶5̶" min=5 max=1000 name="amount" class="btn-primary">
+                        <a>Serviço temporariamente indisponivel.</a>
+                        <input class="btn-primary" disabled type="submit" value="SACAR">
+                    </form>
+                </div>
+            </section>
         </main>
 </body>
 </html>

@@ -1,10 +1,9 @@
+
 <?php
 session_start();
-
-if (!isset($_SESSION["login"])) {
-    header("Location: signin.php");
-};
+require "db_conn.php";
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +22,9 @@ if (!isset($_SESSION["login"])) {
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&display=swap" rel="stylesheet">
 
     <script src="https://kit.fontawesome.com/3602e07857.js" crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
 </head>
+
 <body class="flex-body">
     <nav>
         <span id="site-title">
@@ -63,45 +64,50 @@ if (!isset($_SESSION["login"])) {
 
     <div id="giant-grid">
         <main>
-            <iframe id="game-iframe" src="games/tigerGame.php" width="350" height="750"></iframe>
+            <section class="margin-top section2">
+                <h2 class="dela-gothic-one-regular"><i class="fa-solid fa-medal decal-color"></i>  LEADERBOARD</h2>
+                <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+                </div>
+            </section>
+            <section class="margin-top section2">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 10%">Place</td>
+                        <td>Username</td>
+                        <td>Money Gained</td>
+                    </tr>
+                    <?php
+                        $query = "SELECT * FROM users ORDER BY money_gained DESC LIMIT 100";
+                        $result = mysqli_query($conn,$query);
+                        $count = 0;
+                        foreach ($result as $user)
+                        {
+                            ?>
+                            <tr>
+                                <td><?php
+                                $count += 1;
+                                if ($count > 3) {
+                                    echo $count;
+                                } else {
+                                    if ($count == 1) {
+                                        echo "<i class='fa-solid fa-medal golden-color'></i>";
+                                    } elseif ($count == 2) {
+                                        echo "<i class='fa-solid fa-medal silver-color'></i>";
+                                    } elseif ($count == 3) {
+                                        echo "<i class='fa-solid fa-medal bronze-color'></i>";
+                                    };
+                                };
+                                ?>
+                                </td>
+                                <td><?=$user["username"]?></td>
+                                <td><?=$user["money_gained"]?></td>
+                            </tr>
+                            <?php
+                        };
+                    ?>
+                </table>
+            </section>
+
         </main>
-        <aside class="left">
-            <div class="left ad-popup dm-sans">
-                <section>
-                    <h3 class="dela-gothic-one-regular"><i class="fa-solid fa-dice decal-color"></i>  Rodadas Grátis</h3>
-                    <p>Receba <b class="underline">50 rodadas grátis</b> em nossos slots mais populares. A sorte pode estar ao seu lado!</p>
-                </section>
-                <a href="#signup" class="btn-secondary">Aproveite Agora!</a>
-            </div>
-            <div class="left ad-popup dm-sans">
-                <section>
-                    <h3 class="dela-gothic-one-regular"><i class="fa-solid fa-hand-holding-dollar decal-color"></i>  Bônus de<br>Boas-Vindas</h3>
-                    <p>Ganhe até <b class="underline">100% de bônus</b> no seu primeiro depósito e comece sua jornada com o pé direito!</p>            
-                </section>
-                <a href="#signup" class="btn-secondary">Aproveite Agora!</a>
-            </div>
-        </aside>
-        <aside class="right">
-            <span>
-                
-            </span>
-        </aside>
-    </div>
-
-    <footer>
-        <div class="left">
-            <span id="site-title">
-                <div class="pusher-32px"></div>
-                <i class="fa-solid fa-cannabis site-icon"></i>
-                <span class="spacing"></span>
-                <h1>B<span class="small-title">REEZE</span></h1>
-            </span>    
-            There is no time for a full footer.
-        </div>
-        <div class="right">
-            
-        </div>
-    </footer>
-
 </body>
 </html>

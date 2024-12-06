@@ -1,3 +1,9 @@
+<?php
+session_start();
+$_SESSION["login"] = null;
+$_SESSION["passkey"] = null;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

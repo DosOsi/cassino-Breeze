@@ -32,11 +32,15 @@ session_start();
 
         <div id="options">
             <a href="index.php">HOME</a>
-            <a href="games.php">GAMES</a>
-            <a href="wallet.php">WALLET</a>
+            <a href="leaderboard.php">RANK</a>
+            <?php if (isset($_SESSION["login"])) {echo '<a href="wallet.php">WALLET</a>';}; ?>
         </div>
 
-        <div id="profile-container">
+        <div id="profile-container" <?php
+        if (!isset($_SESSION["login"])) {
+            echo "style='visibility: hidden;'";
+            };
+        ?>>
             <img src="https://static-00.iconduck.com/assets.00/profile-circle-icon-1023x1024-ucnnjrj1.png">
             <span>
                 <b id="username-display">@<?=$_SESSION["login"];?></b>
@@ -45,10 +49,15 @@ session_start();
             <i id="options-button" class="fa-solid fa-bars"></i>
         </div>
     </nav>
-    <div id="secondary-profile-container">
+    <div id="secondary-profile-container"<?php
+        if (!isset($_SESSION["login"])) {
+            echo "style='visibility: hidden;'";
+            };
+        ?>>
         <b id="secondary-username-display">@<?=$_SESSION["login"];?></b>
         <b id="secondary-cash-display"><?=$_SESSION["money"];?> C$</b>
     </div>
+
 
     <div id="giant-grid">
         <main>
@@ -88,7 +97,7 @@ session_start();
         </aside>
         <aside class="right">
             <span>
-                AD AREA
+                
             </span>
         </aside>    
     </div>

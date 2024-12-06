@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded",() => {
         collide_obj = collide_mouse(mouse_pos);
         if (collide_obj != null) {
             if (collide_obj.id == "rollButton") {
-                roll();
+                roll_request();
                 canvas.style.cursor = "default";
             }
         }
@@ -229,14 +229,27 @@ function init() {
     const draw_frame_tick = setInterval(draw_frame, 1000/FPS);
 };
 
+var request_in_progress = false;
 var rolling = false;
 var rolling_max_y = 0;
 var validateMatrixSaved = null;
 var moneyGainedSaved = null;
-function roll() {
+
+function roll_request() {
+    if (request_in_progress) return;
+    let money = Number(window.parent.document.getElementById("secondary-cash-display").innerHTML.slice(0,-3));
+    if (money >= 1.00) {
+        money -= 1.00;
+        window.parent.document.getElementById("secondary-cash-display").innerHTML = money + " C$";
+        window.parent.document.getElementById("cash-display").innerHTML = money + " C$";
+        request_in_progress = true;
+    }
+    document.getElementById("request-roll-iframe").src = "requestRoll.php";
+};
+
+function roll(result) {
     if (rolling) return;
     let velocity_accumulator = 20;
-    let result = Server.get_result();
     let resultMatrix = result[0];
     validateMatrixSaved = result[1];
     moneyGainedSaved = result[2];
@@ -304,6 +317,13 @@ function win() {
             };
         };
     };
+
+    let money = Number(window.parent.document.getElementById("secondary-cash-display").innerHTML.slice(0,-3));
+    money += moneyGainedSaved;
+    window.parent.document.getElementById("secondary-cash-display").innerHTML = Math.round(money * 100)/100 + " C$";
+    window.parent.document.getElementById("cash-display").innerHTML = Math.round(money * 100)/100 + " C$";
+
+    request_in_progress = false;
 };
 
 function draw_frame() {
@@ -429,121 +449,3 @@ function collide_mouse(pos) {
         }
     }
 }
-
-// would be server side.
-
-Server = {};
-Server.user = 25.00
-
-Server.slot_chances = [
-    1, //tigre
-    7, //bell
-    8, //beer
-    10, //cat
-    20, //honey
-    50, //sheep
-    2, //snowman
-];
-Server.slot_values = [ //3x combo
-    30.0, //tigre
-    7.5, //bell
-    4.5, //beer
-    3.0, //cat
-    1.0, //honey
-    0.55, //sheep
-    1.0, //snowman
-];
-
-Server.get_result = () => {
-    let resultMatrix = [
-        [],[],[]
-    ];
-    for (x = 0; x < 3; x++) {
-        for (y = 0; y < 3; y++) {
-            let rollValue = Math.floor(Math.random() * Server.slot_chances.reduce((sum,a) => sum + a, 0));
-            let currentValue = 0;
-            for (i in Server.slot_chances) {
-                currentValue += Server.slot_chances[i];
-                if (rollValue <= currentValue) {
-                    resultMatrix[x].push(i);
-                    break;
-                };
-            };
-            
-        };
-    };
-    return [resultMatrix,Server.validate_result(resultMatrix),Server.get_money_result(resultMatrix,Server.validate_result(resultMatrix))];
-};
-Server.validate_result = (resultMatrix) => {
-    let validateMatrix = [
-        [0,0,0],[0,0,0],[0,0,0]
-    ];
-    let possibleCombinations = [
-        [
-            [0,0],
-            [1,0],
-            [2,0]
-        ],
-        [
-            [0,1],
-            [1,1],
-            [2,1]
-        ],
-        [
-            [0,2],
-            [1,2],
-            [2,2]
-        ],
-        [
-            [0,0],
-            [0,1],
-            [0,2]
-        ],
-        [
-            [1,0],
-            [1,1],
-            [1,2]
-        ],
-        [
-            [2,0],
-            [2,1],
-            [2,2]
-        ],
-    ];
-
-    for (combination of possibleCombinations) {
-        let slot_value = null;
-        let is_unique = true;
-        for (pos in combination) {
-            if (slot_value == null) {
-                slot_value = resultMatrix[combination[pos][0]][combination[pos][1]];
-            } else {
-                if (slot_value != resultMatrix[combination[pos][0]][combination[pos][1]]) {
-                    is_unique = false;
-                    break;
-                };
-            };
-        };
-        if (is_unique) {
-            for (pos in combination) {
-                validateMatrix[combination[pos][0]][combination[pos][1]] += 1;
-            }
-        }
-    };
-
-    return validateMatrix;
-};
-
-Server.get_money_result = (resultMatrix, validateMatrix) => {
-    let mult = 0;
-    let total_money = 0.0;
-    for (container_idx in validateMatrix) {
-        mult += validateMatrix[container_idx].reduce((acc,a) => acc + a,0);
-        for (slot_idx in validateMatrix[container_idx]) {
-            if (validateMatrix[container_idx][slot_idx] >= 1) {
-                total_money += (Server.slot_values[resultMatrix[container_idx][slot_idx]] * validateMatrix[container_idx][slot_idx])/3
-            };
-        };
-    };
-    return Math.round(total_money * mult * 100)/100;
-};

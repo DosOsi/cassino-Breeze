@@ -1,13 +1,12 @@
 
 <?php
 
-ini_set("display_errors",1);
-error_reporting(E_ALL);
-
 session_start();
 include "db_conn.php";
 
 $_SESSION["login"] = null;
+$_SESSION["passkey"] = null;
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
     $password = $_POST["password"];
@@ -20,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif ($password != $confirm_password) {
         header("Location: signin.php?fail=password_mismatch");        
     } else {
-        $query = "INSERT INTO users(username,password,money,privilege) VALUES ('$username','$password',0.00,0)";
+        $query = "INSERT INTO users(username,password,money,privilege,money_gained) VALUES ('$username','$password',0.00,0,0)";
         $result = mysqli_query($conn, $query);
         header("Location: login.php");        
     };
