@@ -16,6 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
         jackpotCountDefault.innerHTML = jackpotCountCopy.innerHTML
         jackpotCountCopy.classList.remove("jackpot-new-animation")
     })
+
+    document.getElementById("profile-container").addEventListener("mousedown", () => {
+        window.location.href = "profile.php";
+    });
 })
 
 const jackpotChance = 0.75
